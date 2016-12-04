@@ -1,0 +1,15 @@
+version: '2'
+services:
+    db:
+        image: mongo
+        ports:
+          - "27017:27017"
+    web:
+        build: .
+        command: python app.py
+        volumes: 
+          - .:/code
+        ports:
+          - "8000:5000"
+        depends_on:
+          - db
