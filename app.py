@@ -39,6 +39,13 @@ class Client:
         else:
             self._parameters = {}
 
+    def __repr__(self):
+        return '<Client username: {}, full_name: {} {}>'.format(
+            self.username, self.first_name, self.last_name)
+
+    def __str__(self):
+        return self.__repr__()
+
     @classmethod
     def collection(cls):
         """Returns flask_pymongo.wrappers.Collection."""
@@ -129,14 +136,13 @@ def client_get(username=None):
 def get_all_clients():
     response = '<i><h4>List of all clients:</h4></i>'
     for counter, client in enumerate(Client.all(), 1):
-        print(client.__dict__)
+        print(client)
         response += """
         <i><p style="margin-left:20px;">
             {}. Client: username: {}, full_name: {} {}
         </p></i>
         """.format(counter, client.username, client.first_name,
                    client.last_name)
-    print(response)
     return Template(response).render()
 
 
